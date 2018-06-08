@@ -1,0 +1,72 @@
+<!doctype html>
+<head>
+<title>KApps</title>
+</head>
+<body>
+  <link rel="stylesheet" type="text/css" href="kplatlib.css">
+  <style>
+    button {
+		font-size:16px;
+		background-color:yellow;
+		color:purple;
+		}
+		body {
+		background-color:tan;
+		}
+  </style>
+  
+  <div id="scrn_home" class="scrn">
+    <h1>KApps, app manager of KPlat</h1>
+    Welcome to KApps, the app manager of KPlat. Use this app to buy apps that are not free.
+    Please select an app to buy below:
+    <br>
+    <select id="app_dropdown">
+      <option value="WolfTown">Wolf Town (Cost 10 KPlat points)</option>
+    </select><br><br>
+    <button id="go_buy" onclick="buy()">Buy!</button><br>
+    <br><button onclick="openLink('KPlat.html')">Back to Apps</button>
+  </div>
+  <div id="scrn_demo" class="scrn">
+  <p id="demo"></p>
+  </div>
+  <script src="kplatlib.js"></script>
+  <script>
+    showScreen("scrn_home");
+    saveCurrentApp("KApps");
+    //creditPoints(10);
+    
+    function buy() {
+   loadLoginTable(function() {
+    var username = loadCurrentUser();
+    var user_data = findUser(username);	
+    
+    document.getElementById("demo").innerHTML = user_data.points;
+    console.log(Number(document.getElementById("demo").innerHTML));
+    points = Number(document.getElementById("demo").innerHTML);
+    
+    
+console.log(Number(document.getElementById("demo").innerHTML));
+      console.log(points);
+      if ((points - 10)<0) {
+        alert("Sorry, but you do not have enough money to buy this app");
+        
+       } else {
+        debitPoints(10);
+        makeTruepas1();
+        alert("You have bought this app");
+      }
+      })
+    }
+    function makeTruepas1() {
+    loadLoginTable(function() {
+    var username = loadCurrentUser();
+    var user_data = findUser(username);
+    updateLoginTable(username,'pas1',1,function() {
+    user_data.pas1 = 1;
+    })
+    saveLoginTable();
+    })
+  }
+  </script>
+</body>
+</html>

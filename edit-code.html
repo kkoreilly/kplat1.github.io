@@ -1,0 +1,47 @@
+<html>
+<head>
+<title>Edit code</title>
+</head>
+<body>
+<link rel="stylesheet" type="text/css" href="kplatlib.css">
+<style>
+</style>
+
+<div id="scrn_home" class="scrn">
+<h1>Edit code</h1>
+Edit the code of:
+<select id="doc_dropdown">
+<option value="kplat">KPlat.html</option>
+<option value="ksearch">KSearch.html</option>
+</select>
+<button onclick="goCode()">Go!</button>
+</div>
+
+<div id="scrn_edit_code" class="scrn">
+The code for the following document is below.
+<form id="edit_code">
+<textarea height="50" width="50" id="code_text"></textarea>
+</form>
+</div>
+
+<script src="kplatlib.js"></script>
+
+<script>
+showScreen('scrn_home');
+var kplat_code = "tester code";
+var ksearch_code = "tester code2";
+function goCode() {
+var doc = doc_dropdown.value;
+var value;
+if (doc == "kplat") {
+value = kplat_code;
+} else if (doc == "ksearch") {
+value = ksearch_code;
+}
+console.log(value);
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,529 @@
+<html>
+<head>
+<title>KBrowser</title>
+</head>
+<body>
+<style>
+#search_form {
+display:inline-block;
+}
+table {
+        width: 100%
+            }
+    th {
+    text-align: left;
+    background-color: lightgreen;
+    color: red
+}
+    th, td {
+        padding: 15px;
+        border-bottom: 1px solid;
+    }
+    .powered_by_kplat {
+    	font-size:14px;
+    	font-weight:bold;
+    	color:green;
+    }
+    .account{
+    padding: 15px 32px;
+    font-size: 16px;
+    background-color: lightgreen;
+    border-radius:50%;
+    border:2px solid red;
+    box-shadow:10px 10px 5px grey;
+    }
+    #apps {
+    display:none;
+    }
+    body {
+    background-color:66ffcc;
+    }
+    * {
+		margin-left:5px;
+		}
+	#edit_button {
+	display:none;
+	}
+</style>
+<link rel="stylesheet" type="text/css" href="kplatlib.css">
+
+<div id="scrn_search" class="scrn">
+<div id="main_top">
+<!--<img src="home-logo.png" alt="Home logo" width="30" height="30" onclick="showScreen('scrn_search')"> -->
+<br><form id="search_form" action="javascript:searchBrowser('1')">
+<input type="text" id="search_text" name="search_text" placeholder="Your Search" size="200"></input>
+</form><br>
+Search for:
+<select id="type_of_search">
+<option>Both</option>
+<option>Browser</option>
+<option>KSearch</option>
+
+</select>
+
+<h1>KBrowser</h1>
+<h3>Welcome to KBrowser</h3>
+
+<button onclick="showScreen('scrn_post_page')">Post a page</button>
+<button onclick="showScreen('scrn_help')">Help</button>
+<button onclick="showScreen('scrn_rewards')">Rewards</button>
+<button onclick="yourPosts()">Your Posts</button>
+</div>
+<h2>Apps:</h2>
+<button onclick="findApps()" id="appsChange">Show Apps</button><br>
+<div id="apps"><br><br>
+<button type="button" id="log_out" onclick="openLink('KPlat.html')" class="account">Log Out</button>
+<button type="button" id="go_kodmail" class="account" onclick= "openLink('KodMail.html')">KodMail</button>
+<button type="button" id="go_ksearch" class="account" onclick= "openLink('KSearch.html')">KSearch</button>
+<button type="button" id="go_wt" class="account" onclick= "openLink('WolfTown.html')">Wolf Town (Must pay to unlock)</button>
+<button type="button" id="go_klottery" class="account" onclick= "openLink('KLottery.html')">KLottery</button>
+<button type="button" id="go_atm" class="account" onclick="openLink('atm.html')">ATM</button>
+<button onclick="openLink('KApps.html')" class="account">KApps - App Manager</button>
+<button onclick="openLink('KFeedback.html')" class="account">KFeedback</button>
+<button onclick="openLink('usekplat.html')" class="account">UseKPlat - free tips for KPlat</button>
+</div>
+<div id="search_results">
+<h2 id="browser_p"></h2>
+<div id="search_records"></div>
+<h2 id="ksearch_p"></h2>
+<div id="search_records2"></div>
+</div>
+
+</div>
+<div id="scrn_help" class="scrn">
+<h1>Help</h1>
+<p>KBrowser will create a whole new domain system and Browser, and it will hopefully become the heart of KPlat. Allowing coding and just plain text, KBrowser will create a huge opportunity. Giving the ability to code your own site on KPlat, KBrowser is a huge leap forward.</p>
+<button onclick="showScreen('scrn_search')">Back</button>
+</div>
+<div id="scrn_post_page" class="scrn">
+<form id="post_page_form">
+Your keyword (like, mywebsite): <input type="text" id="page_keyword"></input><br>
+Your domain:
+<select id="domain_dropdown">
+<option id="domain_com">.com</option>
+<option id="domain_kplat">.kplat</option>
+<option id="domain_site">.site</option>
+
+</select><br>
+<h3>Note: this will cost 10 KPlat points</h3><br>
+Enter in the text/code for your page.<br>For non coders, just type in text.<br> For coders, you can use html.<br>
+<textarea id="page_code" rows="40" cols="80">Your text/code here</textarea>
+</form>
+<button onclick="showScreen('scrn_search')">Back</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<button onclick="postPage()">Submit</buttom>
+
+</div>
+<div id="scrn_read_page" class="scrn">
+<form id="search_form2" action="javascript:searchBrowser('2')">
+<input type="text" id="search_text2" name="search_text" placeholder="Your Search" size="200"></input><br>
+Search for:
+<select id="type_of_search2">
+<option>Both</option>
+<option>Browser</option>
+<option>KSearch</option>
+
+</select>
+</form>
+<h2 class="powered_by_kplat">Powered by KPlat</h2>
+<p id="page_header"></p>
+<h3 class="powered_by_kplat">Powered by KPlat</h3>
+<button onclick="showScreen('scrn_search')">Back</button>
+<button onclick="edit()" id="edit_button">Edit</button>
+</div>
+<div id="scrn_read_post" class="scrn">
+<form id="search_form3" action="javascript:searchBrowser('3')">
+<input type="text" id="search_text3" name="search_text" placeholder="Your Search" size="200"></input><br>
+Search for:
+<select id="type_of_search3">
+<option>Both</option>
+<option>Browser</option>
+<option>KSearch</option>
+
+</select>
+</form>
+
+        <h1>Post</h1>
+        <div id="search_message"></div>
+        <button type="button" id="search_msg_back" class="search_screen" onclick="showScreen('scrn_search')">Back to search</button>
+        
+    </div>
+    
+<div id="scrn_rewards" class="scrn">
+<h1>Rewards</h1>
+<button onclick="collectStarter()">Starter bonus (5 free points)</button>
+<button onclick="showScreen('scrn_search')">Back</button>
+</div>
+
+<div id="scrn_edit_page" class="scrn">
+
+Enter in the text/code for your page.<br>For non coders, just type in text.<br> For coders, you can use html.<br>
+<form id="edit_form">
+<textarea id="page_edit_code" rows="40" cols="80">Your text/code here</textarea>
+</form><br>
+<button onclick="showScreen('scrn_search')">Back</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<button onclick="sumbitEdit()">Submit</buttom>
+
+
+</div>
+
+<script src="kplatlib.js"></script>
+<script>
+showScreen('scrn_search');
+saveCurrentApp('KBrowser');
+BrowserTable = [];
+var USERNAME = loadCurrentUser();
+var SEARCH_VAR;
+var AD_SPACING = 5;
+var SEARCH_SET;
+var apps_change = 0;
+var CUR_MSG_NO;
+
+function collectStarter() {
+
+    
+loadLoginTable(function() {
+var username = loadCurrentUser();
+    var user_data = findUser(username);
+    console.log(user_data);	
+    var used = user_data.reward1;
+    console.log(used);
+    if (used == "used") {
+    confirm("You have already collected this reward");
+    } else {
+    user_data.reward1 = "used";
+     used = user_data.reward1;
+     console.log(used);
+     console.log(username);
+    updateLoginTable(username, 'reward1', used,function() {
+    saveLoginTable();
+    creditPoints(5);
+    confirm("You have collected this reward");
+    })
+    
+    
+    
+    }
+
+})
+
+}
+function yourPosts() {
+document.getElementById("search_records").innerHTML = "";
+document.getElementById("search_records2").innerHTML = "";
+   document.getElementById("browser_p").innerHTML = "";
+   document.getElementById("ksearch_p").innerHTML = "";
+   
+   
+   document.getElementById("browser_p").innerHTML = "Your browser pages";
+         
+loadBrowserTable(function() {
+	
+       
+        var searchRecsHtml; // this is where all the html rendering of the search records goes
+        var n_recs = BrowserTable.length;
+        var n_results = 0;
+        searchRecsHtml = "<table><tr>" /* <th style=width:5%>Read</th> */ +  "<th>Domain</th> <th>By</th>";
+        for(var rec=0; rec < n_recs; rec++) {
+          var subj = BrowserTable[rec].domain;
+          var txt = BrowserTable[rec].code;
+          var by = BrowserTable[rec].author;
+          
+          if(by == USERNAME) {
+            n_results++;
+            
+            searchRecsHtml += "<tr onclick='viewPage(" + rec + ")'> <td>" + BrowserTable[rec].domain + "</td>  <td>" + BrowserTable[rec].author + "</td> </tr>";
+            
+          }
+          
+        }
+        searchRecsHtml += "</table>";
+        console.log(searchRecsHtml);
+        document.getElementById("search_records").innerHTML = searchRecsHtml;
+        saveBrowserTable();
+    
+    })
+    
+    
+    
+    document.getElementById("ksearch_p").innerHTML = "Your KSearch pages";
+    loadPostTable(function() {
+        loadAdTable(function() {
+       
+        console.log(PostTable);
+        console.log(AdTable);
+        var searchRecsHtml; // this is where all the html rendering of the search records goes
+        var n_recs = PostTable.length;
+        var n_results = 0;
+        
+        searchRecsHtml = "<table><tr>" /* <th style=width:5%>Read</th> */ +  "<th>Subject</th> <th style=width:15%>By</th> <th style='width:15%'>Date</th></tr>";
+        for(var rec=0; rec < n_recs; rec++) {
+          var subj = PostTable[rec].subject;
+          var txt = PostTable[rec].text;
+          var by = PostTable[rec].author;
+          if(by == USERNAME) {
+            n_results++;
+            console.log(1);
+            searchRecsHtml += "<tr onclick='viewPost(" + rec + ")'> <td>" + PostTable[rec].subject + "</td>  <td>" + PostTable[rec].author + "</td> <td>" +
+                /* PostTable[rec].by + "</td> <td>" + */ PostTable[rec].date + "</td> </tr>";
+            }
+          }
+          
+        
+        searchRecsHtml += "</table>";
+        document.getElementById("search_records2").innerHTML = searchRecsHtml;
+    })
+    })
+}
+function searchBrowser(num) {
+showScreen('scrn_search');
+
+document.getElementById("search_records").innerHTML = "";
+document.getElementById("search_records2").innerHTML = "";
+   document.getElementById("browser_p").innerHTML = "";
+   document.getElementById("ksearch_p").innerHTML = "";
+if (num == '1') {
+	SEARCH_SET = type_of_search.value;
+	var form = document.getElementById("search_form");
+       SEARCH_VAR = form.search_text.value;
+       
+       } else if (num == '2') {
+       SEARCH_SET = type_of_search2.value;
+       var form = document.getElementById("search_form2");
+       var SEARCH_VAR = form.search_text2.value;
+       } else if (num == '3') {
+       SEARCH_SET = type_of_search3.value;
+       var form = document.getElementById("search_form3");
+       var SEARCH_VAR = form.search_text3.value;
+       }
+       document.getElementById("search_text").value = SEARCH_VAR;
+         document.getElementById("search_text2").value = SEARCH_VAR;
+         document.getElementById("search_text3").value = SEARCH_VAR;
+       if (SEARCH_SET == "Browser" || SEARCH_SET == "Both") {
+       document.getElementById("browser_p").innerHTML = "Browser Results";
+         
+loadBrowserTable(function() {
+	
+       console.log(SEARCH_VAR);
+        var searchRecsHtml; // this is where all the html rendering of the search records goes
+        var n_recs = BrowserTable.length;
+        var n_results = 0;
+        searchRecsHtml = "<table><tr>" /* <th style=width:5%>Read</th> */ +  "<th>Domain</th> <th>By</th>";
+        for(var rec=0; rec < n_recs; rec++) {
+          var subj = BrowserTable[rec].domain;
+          var txt = BrowserTable[rec].code;
+          if(subj.includes(SEARCH_VAR) || txt.includes(SEARCH_VAR)) {
+            n_results++;
+            
+            searchRecsHtml += "<tr onclick='viewPage(" + rec + ")'> <td>" + BrowserTable[rec].domain + "</td>  <td>" + BrowserTable[rec].author + "</td> </tr>";
+            
+          }
+          
+        }
+        searchRecsHtml += "</table>";
+        console.log(searchRecsHtml);
+        document.getElementById("search_records").innerHTML = searchRecsHtml;
+        saveBrowserTable();
+    
+    })
+    }
+    
+    //more:
+    if (SEARCH_SET == "KSearch" || SEARCH_SET == "Both") {
+    document.getElementById("ksearch_p").innerHTML = "KSearch Results";
+    loadPostTable(function() {
+        loadAdTable(function() {
+       
+        console.log(PostTable);
+        console.log(AdTable);
+        var searchRecsHtml; // this is where all the html rendering of the search records goes
+        var n_recs = PostTable.length;
+        var n_results = 0;
+        console.log(SEARCH_VAR);
+        searchRecsHtml = "<table><tr>" /* <th style=width:5%>Read</th> */ +  "<th>Subject</th> <th style=width:15%>By</th> <th style='width:15%'>Date</th></tr>";
+        for(var rec=0; rec < n_recs; rec++) {
+          var subj = PostTable[rec].subject;
+          var txt = PostTable[rec].text;
+          if(subj.includes(SEARCH_VAR) || txt.includes(SEARCH_VAR)) {
+            n_results++;
+            console.log(1);
+            if (n_results % AD_SPACING == 0) {
+              var ad_rec = Math.floor(Math.random() * AdTable.length);
+              var ad_link = "";
+              if (AdTable[ad_rec].link == "") {
+                ad_link="";
+              } else {
+                ad_link = AdTable[ad_rec].link;
+              }
+              searchRecsHtml += "<tr onclick='openLink2(\"" + ad_link + "\")'> <td>" + "<b>Ad: </b>" + AdTable[ad_rec].text + "</td>  <td>" + "</td> <td>";
+              
+            } else {
+            searchRecsHtml += "<tr onclick='viewPost(" + rec + ")'> <td>" + PostTable[rec].subject + "</td>  <td>" + PostTable[rec].author + "</td> <td>" +
+                /* PostTable[rec].by + "</td> <td>" + */ PostTable[rec].date + "</td> </tr>";
+            }
+          }
+          
+        }
+        searchRecsHtml += "</table>";
+        document.getElementById("search_records2").innerHTML = searchRecsHtml;
+    })
+    })
+    }
+}
+function postPage() {
+
+loadLoginTable(function() {
+var username = loadCurrentUser();
+var user_data = findUser(username);
+var points = user_data.points;
+var diff = points-10;
+if (diff < 0) {
+confirm("Sorry, but you do not have enough money to do this");
+showScreen('scrn_search');
+return;
+} else {
+
+var form = document.getElementById("post_page_form");
+var domain = form.page_keyword.value+domain_dropdown.value;
+var code = form.page_code.value;
+code = code.replace(/</g, "^(");
+code = code.replace(/>/g, "^)");
+console.log(code);
+var date = new Date();
+
+var xhttp = new XMLHttpRequest();
+        var cgicmd = "/../cgi-bin/kplat_php.php?phpfun=postpage&author=" +USERNAME+"&domain=" +domain + "&code="+ code+ "&start_date="+ date+"&author=" + USERNAME;
+        xhttp.open("GET", cgicmd, true);
+        xhttp.send();
+        saveBrowserTable();
+//posting page
+//remember to convert <>
+showScreen('scrn_search');
+debitPoints(10);
+}
+})
+}
+
+
+ function loadBrowserTable(callback) {
+    var xhttp = new XMLHttpRequest();
+        var cgicmd = "http://kplat.x10.mx/cgi-bin/kplat_php.php?phpfun=readpages";
+        xhttp.open("GET", cgicmd, true);
+        xhttp.send();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                BrowserTable = JSON.parse(this.responseText);
+		callback();
+            }
+        };
+    }
+    function saveBrowserTable() {
+      localStorage.setItem('BrowserTable', JSON.stringify(BrowserTable));
+    }
+    function viewPage(rec_no) {
+    
+    
+    CUR_MSG_NO = rec_no;
+    
+    if (BrowserTable[rec_no].author == USERNAME) {
+    console.log('g');
+    document.getElementById("edit_button").style.display = "block";
+    } else {
+    document.getElementById("edit_button").style.display = "none";
+    }
+        msgHtml = "<b> By: </b>" + BrowserTable[rec_no].author + "<br>" +
+            "<b> Date: </b>" + BrowserTable[rec_no].start_date + "<br>" +
+            "<b> Domain: </b>" + BrowserTable[rec_no].domain + "<br>" +
+            "<b>Text/site: </b><br>" + BrowserTable[rec_no].code;
+        document.getElementById("page_header").innerHTML = msgHtml;
+        showScreen('scrn_read_page');
+        
+       saveBrowserTable();
+    }
+    function loadPostTable(callback) {
+    var xhttp = new XMLHttpRequest();
+        var cgicmd = "http://kplat.x10.mx/cgi-bin/kplat_php.php?phpfun=readposts";
+        xhttp.open("GET", cgicmd, true);
+        xhttp.send();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                PostTable = JSON.parse(this.responseText);
+                callback();
+            }
+        };
+    }
+    
+     function loadAdTable(callback) {
+    var xhttp = new XMLHttpRequest();
+        var cgicmd = "http://kplat.x10.mx/cgi-bin/kplat_php.php?phpfun=readad";
+        xhttp.open("GET", cgicmd, true);
+        xhttp.send();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                AdTable = JSON.parse(this.responseText);
+		callback();
+            }
+        };
+    }
+   
+   function viewPost(rec_no) {
+        CUR_MSG_NO = rec_no;
+        msgHtml = "<b> By: </b>" + PostTable[rec_no].author + "<br>" +
+            "<b> Date: </b>" + PostTable[rec_no].date + "<br>" +
+            "<b> Subject: </b>" + PostTable[rec_no].subject + "<br>" +
+            "<b>Text: </b><br>" + PostTable[rec_no].text.replace("/n","<br>") + "<br>";
+        document.getElementById("search_message").innerHTML = msgHtml;
+        showScreen('scrn_read_post');
+        if (PostTable[rec_no].to == USERNAME) {
+            PostTable[rec_no].read = true
+        }
+        savePostTable();
+    }
+    function findApps() {
+    	if (apps_change == 0){
+    	showApps();
+    	} else if (apps_change == 1) {
+    	hideApps();
+    	}
+    }
+    function showApps() {
+    document.getElementById("apps").style.display = "block";
+    document.getElementById("appsChange").innerHTML = "Hide apps";
+    apps_change = 1;
+    }
+    function hideApps() {
+    document.getElementById("apps").style.display = "none";
+    document.getElementById("appsChange").innerHTML = "Show apps";
+    apps_change = 0;
+    }
+    
+    function updateBrowserTable(text,field,value,callback) {
+	var xhttp = new XMLHttpRequest();
+        var cgicmd = "http://kplat.x10.mx/cgi-bin/kplat_php.php?phpfun=updatebrowser&text=" + text + "&field=" + field + "&value=" + value;
+        xhttp.open("GET", cgicmd, true);
+        xhttp.send();
+        callback();
+}
+
+function edit() {
+	showScreen('scrn_edit_page');
+	document.getElementById("page_edit_code").value = BrowserTable[CUR_MSG_NO].code;
+}
+function sumbitEdit() {
+var text = document.getElementById("edit_form").page_edit_code.value;
+updateBrowserTable(BrowserTable[CUR_MSG_NO].domain, 'code', text, function() {
+saveBrowserTable();
+})
+showScreen('scrn_search');
+}
+
+function deletePage(domain,callback) {
+	var xhttp = new XMLHttpRequest();
+        var cgicmd = "http://kplat.x10.mx/cgi-bin/kplat_php.php?phpfun=deletebrowser&domain=" + domain;
+        xhttp.open("GET", cgicmd, true);
+        xhttp.send();
+        callback();
+
+}
+</script>
+</body>
+</html>

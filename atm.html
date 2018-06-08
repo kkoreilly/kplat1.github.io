@@ -1,0 +1,190 @@
+<!doctype html>
+<head>
+<title>ATM</title>
+</head>
+<body>
+<link rel="stylesheet" type="text/css" href="kplatlib.css">
+  <style>
+    #amount_input {
+      display:inline;
+    }
+    #preview {
+      display:inline;
+    }
+    button {
+    background-color:yellow;
+    color:purple;
+    font-size:16px;
+    }
+    body {
+    background-color:lightgreen;
+    }
+  </style>
+  <div id="scrn_home" class="scrn">
+    <h1>ATM</h1>
+    Welcome to the ATM app of KPlat. Use this app to exachange currencies.
+    Please select a curreny to convert and an amount below.<br>
+    Convert
+    <form id="amount_input">
+      <input name="amount_input2" onchange="preview()">
+    </form>
+     
+    <select id="cur1_dropdown" onchange="preview()">
+      <option value="KSearch">KSearch Point(s)</option>
+      <option value="WolfTown">Wolf Town point(s)</option>
+      <option value="KPlat">KPlat Point(s)</option>
+    </select>
+    to <select id="cur2_dropdown" onchange="preview();">
+      <option value="KSearch">KSearch Point(s)</option>
+      <option value="WolfTown">Wolf Town point(s)</option>
+      <option value="KPlat">KPlat Point(s)</option>
+    </select><br>
+    Preview: You will get <p id="preview">0 KSearch points.</p><br><br>
+    
+    <button id="go_convert" type="button" onclick="convert()">Convert!</button><br><br>
+    
+    <p id="kspoints">You have _ KSearch Points</p>
+    <p id="wtpoints">You have _ WolfTown Points</p>
+    <p id="kpoints">You have _ KPlat points</p><br><br>
+    <button onclick="showScreen('scrn_help')">Help</button>
+    <button onclick="openLink('KPlat.html')">Back to apps</button>
+  </div>
+  <div id="scrn_help" class="scrn">
+  <p>In the ATM app, you can view your current amount of different currencies and convert them. Different currencies have different values, but the main currency is the KPlat point.</p>
+  <button onclick="showScreen('scrn_home')">Back</button>
+  </div>
+<script src="kplatlib.js"></script>
+<script>
+  showScreen('scrn_home');
+  loadMoney();
+  saveCurrentApp("ATM");
+  function loadMoney() {
+    creditKSearchPoints(0);
+    creditWolfTownPoints(0);
+    creditPoints(0);
+	
+    //;
+  }
+  function creditKSearchPoints(amount) {
+    loadLoginTable(function() {
+   console.log(amount);
+    var username = loadCurrentUser();
+    var user_data = findUser(username);	
+    user_data.KSearch_points = Number(user_data.KSearch_points )+ amount;
+    var points = user_data.KSearch_points;
+    updateLoginTable(username, 'KSearch_points', points,function() {
+    saveLoginTable();
+    document.getElementById("kspoints").innerHTML = "You have " + points + " KSearch points.";
+    })
+    })
+  }
+  
+  function debitKSearchPoints(amount) {
+    loadLoginTable(function() {
+    console.log(amount);
+    var username = loadCurrentUser();
+    var user_data = findUser(username);	
+    user_data.KSearch_points = Number(user_data.KSearch_points )- amount;
+    var points = user_data.KSearch_points;
+    updateLoginTable(username, 'KSearch_points', points,function() {
+    saveLoginTable();
+    document.getElementById("kspoints").innerHTML = "You have " + points + " KSearch points.";
+    })
+    })
+  }
+  function creditWolfTownPoints(amount) {
+    loadLoginTable(function() {
+    var username = loadCurrentUser();
+    var user_data = findUser(username);	
+    user_data.WolfTown_points = Number(user_data.WolfTown_points )+ amount;
+    var points = user_data.WolfTown_points;
+    updateLoginTable(username, 'WolfTown_points', points,function() {
+    saveLoginTable();
+    document.getElementById("wtpoints").innerHTML = "You have " + points + " Wolf Town points.";
+    })
+    })
+  }
+  
+  function debitWolfTownPoints(amount) {
+     loadLoginTable(function() {
+    var username = loadCurrentUser();
+    var user_data = findUser(username);	
+    user_data.WolfTown_points = Number(user_data.WolfTown_points )- amount;
+    var points = user_data.WolfTown_points;
+    updateLoginTable(username, 'WolfTown_points', points,function() {
+    saveLoginTable();
+    document.getElementById("wtpoints").innerHTML = "You have " + points + " Wolf Town points.";
+    })
+    })
+  }
+  function convert() {
+    var cur1 = cur1_dropdown.value;
+    var cur2 = cur2_dropdown.value;
+    var form = document.getElementById("amount_input");
+    var amount = form.amount_input2.value;
+    var username = loadCurrentUser();
+    var user_data = findUser(username);
+    var points = 0;
+    if (cur1 == "KSearch") {
+       points = user_data.KSearch_points;
+       
+    } else if (cur1 == "KPlat") {
+       points = user_data.points;
+    } else if (cur1 == "WolfTown") {
+       points = user_data.WolfTown_points;
+    }
+    if ((points - amount)<0) {
+      alert("Sorry, but you don't have enough points in the " + cur1 + " currency to make this exchange.");
+    } else {
+      var result = caculateRate(cur1,cur2,amount);
+      if (cur1 == "KSearch") {
+       debitKSearchPoints(amount);
+    } else if (cur1 == "KPlat") {
+       debitPoints(amount);
+       //;
+    } else if (cur1 == "WolfTown") {
+       debitWolfTownPoints(amount);
+    }
+      if (cur2 == "KSearch") {
+       creditKSearchPoints(result);
+    } else if (cur2 == "KPlat") {
+       creditPoints(result);
+       //;
+    } else if (cur2 == "WolfTown") {
+       creditWolfTownPoints(result);
+    }
+    alert("Your money has been converted");
+    }
+  }
+  function preview() {
+    var cur1 = cur1_dropdown.value;
+    var cur2 = cur2_dropdown.value;
+    var form = document.getElementById("amount_input");
+    var amount = form.amount_input2.value;
+    var result = caculateRate(cur1,cur2,amount);
+    document.getElementById("preview").innerHTML = "You will get " + result + " " + cur2 + " Points."
+  }
+  function caculateRate(cur1,cur2,amount) {
+    var cur1rate = 0;
+    var cur2rate = 0;
+    var result = 0;
+    if (cur1 == "KPlat") {
+      cur1rate = 1;
+    } else if (cur1 == "KSearch") {
+      cur1rate = 10;
+    } else if (cur1 == "WolfTown") {
+      cur1rate = 100;
+    }
+    if (cur2 == "KPlat") {
+      cur2rate = 1;
+    } else if (cur2 == "KSearch") {
+      cur2rate = 10;
+    } else if (cur2 == "WolfTown") {
+      cur2rate = 100;
+    }
+    result = (cur2rate/cur1rate)*amount;
+    return result;
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<head>
+<title>KLottery</title>
+</head>
+<body>
+<style>
+  h1 {
+    color:magenta;
+    background-color:yellow;
+  }
+  body {
+    background-color:lightblue;
+  }
+  button {
+    background-color:lightyellow;
+    color:purple;
+  }
+  .scrn {
+    overflow:scroll;
+  }
+</style>
+<link rel="stylesheet" type="text/css" href="kplatlib.css">
+    <div id="scrn_home" class="scrn">
+      <h1>Home</h1>
+      Pay one KPlat point to go for the lottery. You will earn 1,000,000 KPlat points if you win the lottery.
+      <br>
+      <button type="button" id="lottery_button" class="home_screen" onclick="tryLottery();">Go for the lottery!</button>
+      <p id="lottery_notes"></p>
+      <p id="amount_points"></p>
+      <button type="button" id="back_to_apps" class="home_screen" onclick="openLink('KPlat.html');">Back to apps</button>
+    </div>
+<script src="kplatlib.js"></script>
+<script>
+  var CUR_SCRN = "";
+  var lottery_num = 0
+  saveCurrentApp("KLottery");
+  showScreen("scrn_home");
+  loadLoginTable(function() {
+  var username = loadCurrentUser();
+  var user_data = findUser(username);
+  var points = user_data.points;
+  document.getElementById("amount_points").innerHTML = "You have " + points + " KPlat points.";
+  })
+  function tryLottery() {
+    lottery_num = Math.floor(Math.random() * 1000001);
+    loadLoginTable(function() {
+    var username = loadCurrentUser();
+    var user_data = findUser(username);
+    if (user_data.points >= 1) {
+      debitPoints(1);
+      
+      document.getElementById("amount_points").innerHTML = "You have " + user_data.points + " KPlat points.";
+      if (lottery_num == 567897) {
+        document.getElementById("lottery_notes").innerHTML = "You have won the lottery! Plus 1,000,000 KPlat points."
+        creditPoints(1000000);
+      } else {
+        document.getElementById("lottery_notes").innerHTML = "You failed to win the lottery."
+        
+      }
+      
+      
+    } else {
+      document.getElementById("lottery_notes").innerHTML = "Sorry, but you do not have enough money to go for the lottery."
+    }
+    
+    })
+    loadLoginTable(function() {
+  var username = loadCurrentUser();
+  var user_data = findUser(username);
+  var points = user_data.points;
+  document.getElementById("amount_points").innerHTML = "You have " + points + " KPlat points.";
+  })
+    }
+    function updateAmount() {
+    loadLoginTable(function() {
+  var username = loadCurrentUser();
+  var user_data = findUser(username);
+  var points = user_data.points;
+  document.getElementById("amount_points").innerHTML = "You have " + points + " KPlat points.";
+  })
+    
+  }
+</script>
+</body>
+</html>

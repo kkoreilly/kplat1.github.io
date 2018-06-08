@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+<head>
+<title>KodMail</title>
+</head>
+<body>
+<style>
+    h1 {
+    color: green;
+    }
+    body {
+    background-color: yellow;
+    }
+    table {
+        width: 100%
+            }
+    th {
+    text-align: left;
+    background-color: lightgreen;
+    color: red
+}
+    th, td {
+        padding: 15px;
+        border-bottom: 1px solid;
+    }
+    button {
+        color: red;
+        background-color: lightblue
+            }
+    send {
+        color: red;
+        background-color: lightblue;
+    }
+    .scrn {
+      overflow:scroll;
+    }
+    #mail_records{
+    overflow:scroll;
+    }
+#send_mail_form {
+display:inline;
+}
+div {
+	overflow:auto;
+	}
+table{
+overflow:auto;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="kplatlib.css">
+    <div id="scrn_kodmail_help" class="scrn">
+      <p>Welcome to KodMail. KodMail is the mail site of KPlat. Your account info is carried over to KodMail from KPlat. To get started, you can send a message or go to your mail. When you first come here, you probably won't have any mail but you can still look at how at the layout. When you are looking at your mail you can directly send a message. Currently, you may only send a message to one person at a time. Enter the person's KPlat username in the 'to' section, then enter your message.</p>
+        <br>
+        <button type="button" id="mail_help_back" class="cool_style" onclick="showScreen('scrn_mail');">Back</button>
+    </div>
+    <div id="scrn_mail" class="scrn">
+        <h1>Your Mail</h1>
+        <button type="button" id="mail_home" class="middle_style" onclick="openLink('KPlat.html')">Back to Apps</button>
+        <button type="button" id="mail_help" class="middle_style" onclick="showScreen('scrn_kodmail_help');">Help</button>
+        <button type="button" id="mail_send" class="middle_style" onclick="showScreen('scrn_send_mail')">Send Mail</button>
+        <button type="button" id="mail_sent" class="middle_style" onclick="showSentMail()">Sent Mail</button>
+        <button type="button" id="mail_read_mail" class="middle_style" onclick="showMail()">Read Mail (Refresh)</button><br><br>
+        <div id="mail_2">
+        <div id="mail_records"></div>
+        </div>
+        
+        
+        
+
+    </div>
+    <div id="scrn_read_message" class="scrn">
+        <h1>Message</h1>
+        <div id="mail_message"></div>
+        <button class="cool_style" onclick="reply()">Reply</button>
+        <button type="button" id="mail_msg_back" class="cool_style" onclick="showScreen('scrn_mail')">Back to Mail</button>
+    </div>
+        
+    <div id="scrn_send_mail" class="scrn">
+        <h1>Send Mail</h1>
+        <p><strong>Note:</strong> you may only send mail to one person at a time. This feature may be added in newer versions.</p>
+        Note: To type an enter, type &lt;br&gt; instead of enter.<br>
+        <b>Important people</b><br>
+        Support: support<br>
+        Creator of KPlat: kai<br>
+        <b>Note:</b> when sending mail, you must send it to a valid username on KPlat.<br>
+        <form action="javascript:sendMail();" id="send_mail_form">
+            To:
+            <input type="text" name="mail_to" id="mail_to"><br>
+            Subject:
+            <input type="text" name="mail_subject" id="mail_subject"><br>
+            Message: <br>
+            <textarea name="mail_message" rows="40" cols="80"></textarea><br>
+            <input type="submit" value="Send" id="send" onclick= "showScreen('scrn_mail')" class="cool_style">
+          </form>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button type="button" id="mail_send_cancel" class="cool_style" onclick="showScreen('scrn_mail')">Cancel</button>
+    </div>
+        
+
+
+<script src="kplatlib.js"></script>
+<script>
+    LoginTable = [];
+    var CUR_SCRN = "";
+    var CURRENT_MAIL_RECS = -1;
+    var USERNAME = loadCurrentUser();
+    var CUR_MSG_NO = -1;
+    saveCurrentApp("KodMail");
+    MailTable = [];
+    //loadMailTable();
+    readMail();
+    //viewMessage(0);
+    
+    function sendMail () {
+        var date = new Date();
+        var form = document.getElementById("send_mail_form");
+        if (MailTable === undefined || MailTable === null) {
+            MailTable = [];
+        }
+        var code = form.mail_message.value;
+        code = code.replace(/</g, "^(");
+code = code.replace(/>/g, "^)");
+           var xhttp = new XMLHttpRequest();
+        var cgicmd = "http://kplat.x10.mx/cgi-bin/kplat_php.php?phpfun=sendmail&author="+ USERNAME +"&to="+ form.mail_to.value+ "&subject="+ form.mail_subject.value+ "&date="+ date+ "&message=" + code+ "&read=false";
+        console.log(cgicmd);
+        xhttp.open("GET", cgicmd, true);
+        xhttp.send();
+        saveMailTable();
+        
+    }
+    
+    
+    function readMail() {
+    
+            showScreen('scrn_mail');
+            
+            showMail();
+        }
+    
+    function viewMessage(rec_no) {
+        CUR_MSG_NO = rec_no;
+        msgHtml = "From: " + MailTable[rec_no].author + "<br>" +
+            "To:   " + MailTable[rec_no].reciever + "<br>" +
+            "Date: " + MailTable[rec_no].date + "<br>" +
+            "Message: <br>" + MailTable[rec_no].message.replace("\n","<br>") + "<br>";
+        document.getElementById("mail_message").innerHTML = msgHtml;
+        showScreen('scrn_read_message');
+        if (MailTable[rec_no].reciever == USERNAME) {
+        updateRead(MailTable[rec_no].message,function() {
+            MailTable[rec_no].viewed = "true";
+        })
+        saveMailTable();
+        }
+    }
+    function displayRead(read) {
+    console.log(read);
+        if (read != "1") {
+        return "*";
+        } else {
+        return "";
+        }
+    }
+    function reply() {
+    	var rec_no = CUR_MSG_NO;
+    	var subject = MailTable[rec_no].subject;
+    	var by = MailTable[rec_no].author;
+    	showScreen('scrn_send_mail');
+    	document.getElementById("mail_to").value = by;
+    	document.getElementById("mail_subject").value = "Re: " + subject;
+    	}
+    function showMail() {
+    	loadMailTable(function() {
+        var mailRecsHtml; // this is where all the html rendering of the mail records goes
+        if (typeof MailTable === 'undefined' || MailTable === null) {
+          MailTable = [];
+        }
+        var n_recs = MailTable.length;
+        mailRecsHtml = "<table><tr> <th style=width:5%>Read</th> <th>Subject</th> <th style=width:15%>From</th> <th style='width:15%'>Date</th></tr>";
+        for(var rec=0; rec < n_recs; rec++) {
+            if (MailTable[rec].reciever != USERNAME) {
+                continue;
+            }
+            console.log(displayRead(MailTable[rec].viewed));
+            mailRecsHtml += "<tr onclick='viewMessage(" + rec + ")'> <td>" + displayRead(MailTable[rec].viewed) + "</td>  <td>" + MailTable[rec].subject + "</td> <td>" +
+                MailTable[rec].author + "</td> <td>" + MailTable[rec].date + "</td> </tr>";
+        }
+        mailRecsHtml += "</table>";
+        document.getElementById("mail_records").innerHTML = mailRecsHtml;
+        })
+    }
+    
+    
+    function showSentMail() {
+    	loadMailTable(function() {
+        var mailRecsHtml; // this is where all the html rendering of the mail records goes
+        var n_recs = MailTable.length;
+        mailRecsHtml = "<table><tr> <th style=width:5%>Read</th> <th>Subject</th> <th style=width:15%>To</th> <th style='width:15%'>Date</th></tr>";
+        for(var rec=0; rec < n_recs; rec++) {
+            if (MailTable[rec].author != USERNAME) {
+                continue;
+            }
+            mailRecsHtml += "<tr onclick='viewMessage(" + rec + ")'> <td>" + displayRead(MailTable[rec].viewed) + "</td>  <td>" + MailTable[rec].subject + "</td> <td>" +
+                MailTable[rec].reciever + "</td> <td>" + MailTable[rec].date + "</td> </tr>";
+        }
+        mailRecsHtml += "</table>";
+        document.getElementById("mail_records").innerHTML = mailRecsHtml;
+        })
+    }
+    
+    function loadMailTable(callback) {
+    	var xhttp = new XMLHttpRequest();
+        var cgicmd = "http://kplat.x10.mx/cgi-bin/kplat_php.php?phpfun=readmail";
+        xhttp.open("GET", cgicmd, true);
+        xhttp.send();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                MailTable = JSON.parse(this.responseText);
+                callback();
+            }
+        };
+    }
+    function saveMailTable() {
+        localStorage.setItem('MailTable', JSON.stringify(MailTable));
+    }
+    function updateRead(text,callback) {
+    	var xhttp = new XMLHttpRequest();
+        var cgicmd = "http://kplat.x10.mx/cgi-bin/kplat_php.php?phpfun=updateread&text=" + text;
+        xhttp.open("GET", cgicmd, true);
+        xhttp.send();
+        callback();
+    	
+    	
+    	}
+</script>
+</body>
+</html>
