@@ -16,7 +16,7 @@ function loadLoginTable(callback) {
           LoginTable = []
         }
         var xhttp = new XMLHttpRequest();
-        var cgicmd = "http://kplat.x10.mx/cgi-bin/kplat_php.php?phpfun=readlogin";
+        var cgicmd = "http://kplat.cu.ma/cgi-bin/kplat_php.php?phpfun=readlogin";
         xhttp.open("GET", cgicmd, true);
         xhttp.send();
         xhttp.onreadystatechange = function() {
@@ -47,7 +47,7 @@ function loadCurrentPoints(callback) {
 }
 function updateLoginTable(person,field,value,callback) {
 	var xhttp = new XMLHttpRequest();
-        var cgicmd = "http://kplat.x10.mx/cgi-bin/kplat_php.php?phpfun=updatelogin&person=" + person + "&field=" + field + "&value=" + value;
+        var cgicmd = "http://kplat.cu.ma/cgi-bin/kplat_php.php?phpfun=updatelogin&person=" + person + "&field=" + field + "&value=" + value;
         xhttp.open("GET", cgicmd, true);
         xhttp.send();
         callback();

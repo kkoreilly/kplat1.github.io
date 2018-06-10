@@ -174,10 +174,10 @@ Enter in the text/code for your page.<br>For non coders, just type in text.<br> 
 <textarea id="page_edit_code" rows="40" cols="80">Your text/code here</textarea>
 </form><br>
 <button onclick="showScreen('scrn_search')">Back</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<button onclick="submitEdit()">Submit</buttom>
+<button onclick="submitEdit()">Submit</button>
 
 
-</div>
+</div> 
 
 <script src="kplatlib.js"></script>
 <script>
@@ -423,7 +423,7 @@ debitPoints(1/2);
 
  function loadBrowserTable(callback) {
     var xhttp = new XMLHttpRequest();
-        var cgicmd = "http://kplat.x10.mx/cgi-bin/kplat_php.php?phpfun=readpages";
+        var cgicmd = "http://kplat.cu.ma/cgi-bin/kplat_php.php?phpfun=readpages";
         xhttp.open("GET", cgicmd, true);
         xhttp.send();
         xhttp.onreadystatechange = function() {
@@ -458,7 +458,7 @@ debitPoints(1/2);
     }
     function loadPostTable(callback) {
     var xhttp = new XMLHttpRequest();
-        var cgicmd = "http://kplat.x10.mx/cgi-bin/kplat_php.php?phpfun=readposts";
+        var cgicmd = "http://kplat.cu.ma/cgi-bin/kplat_php.php?phpfun=readposts";
         xhttp.open("GET", cgicmd, true);
         xhttp.send();
         xhttp.onreadystatechange = function() {
@@ -471,7 +471,7 @@ debitPoints(1/2);
     
      function loadAdTable(callback) {
     var xhttp = new XMLHttpRequest();
-        var cgicmd = "http://kplat.x10.mx/cgi-bin/kplat_php.php?phpfun=readad";
+        var cgicmd = "http://kplat.cu.ma/cgi-bin/kplat_php.php?phpfun=readad";
         xhttp.open("GET", cgicmd, true);
         xhttp.send();
         xhttp.onreadystatechange = function() {
@@ -515,7 +515,7 @@ debitPoints(1/2);
     
     function updateBrowserTable(text,field,value,callback) {
 	var xhttp = new XMLHttpRequest();
-        var cgicmd = "http://kplat.x10.mx/cgi-bin/kplat_php.php?phpfun=updatebrowser&text=" + text + "&field=" + field + "&value=" + value;
+        var cgicmd = "http://kplat.cu.ma/cgi-bin/kplat_php.php?phpfun=updatebrowser&text=" + text + "&field=" + field + "&value=" + value;
         xhttp.open("GET", cgicmd, true);
         xhttp.send();
         callback();
@@ -535,7 +535,7 @@ showScreen('scrn_search');
 
 function deletePage(domain,callback) {
 	var xhttp = new XMLHttpRequest();
-        var cgicmd = "http://kplat.x10.mx/cgi-bin/kplat_php.php?phpfun=deletebrowser&domain=" + domain;
+        var cgicmd = "http://kplat.cu.ma/cgi-bin/kplat_php.php?phpfun=deletebrowser&domain=" + domain;
         xhttp.open("GET", cgicmd, true);
         xhttp.send();
         callback();
