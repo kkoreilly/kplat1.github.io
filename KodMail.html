@@ -121,7 +121,7 @@ overflow:auto;
         code = code.replace(/</g, "^(");
 code = code.replace(/>/g, "^)");
            var xhttp = new XMLHttpRequest();
-        var cgicmd = "http://kplat.cu.ma/cgi-bin/kplat_php.php?phpfun=sendmail&author="+ USERNAME +"&to="+ form.mail_to.value+ "&subject="+ form.mail_subject.value+ "&date="+ date+ "&message=" + code+ "&read=false";
+        var cgicmd = "https://kplat.cu.ma/cgi-bin/kplat_php.php?phpfun=sendmail&author="+ USERNAME +"&to="+ form.mail_to.value+ "&subject="+ form.mail_subject.value+ "&date="+ date+ "&message=" + code+ "&read=false";
         console.log(cgicmd);
         xhttp.open("GET", cgicmd, true);
         xhttp.send();
@@ -209,7 +209,7 @@ code = code.replace(/>/g, "^)");
     
     function loadMailTable(callback) {
     	var xhttp = new XMLHttpRequest();
-        var cgicmd = "http://kplat.cu.ma/cgi-bin/kplat_php.php?phpfun=readmail";
+        var cgicmd = "https://kplat.cu.ma/cgi-bin/kplat_php.php?phpfun=readmail";
         xhttp.open("GET", cgicmd, true);
         xhttp.send();
         xhttp.onreadystatechange = function() {
@@ -224,7 +224,7 @@ code = code.replace(/>/g, "^)");
     }
     function updateRead(text,callback) {
     	var xhttp = new XMLHttpRequest();
-        var cgicmd = "http://kplat.cu.ma/cgi-bin/kplat_php.php?phpfun=updateread&text=" + text;
+        var cgicmd = "https://kplat.cu.ma/cgi-bin/kplat_php.php?phpfun=updateread&text=" + text;
         xhttp.open("GET", cgicmd, true);
         xhttp.send();
         callback();

@@ -423,7 +423,7 @@ debitPoints(1/2);
 
  function loadBrowserTable(callback) {
     var xhttp = new XMLHttpRequest();
-        var cgicmd = "http://kplat.cu.ma/cgi-bin/kplat_php.php?phpfun=readpages";
+        var cgicmd = "https://kplat.cu.ma/cgi-bin/kplat_php.php?phpfun=readpages";
         xhttp.open("GET", cgicmd, true);
         xhttp.send();
         xhttp.onreadystatechange = function() {
@@ -458,7 +458,7 @@ debitPoints(1/2);
     }
     function loadPostTable(callback) {
     var xhttp = new XMLHttpRequest();
-        var cgicmd = "http://kplat.cu.ma/cgi-bin/kplat_php.php?phpfun=readposts";
+        var cgicmd = "https://kplat.cu.ma/cgi-bin/kplat_php.php?phpfun=readposts";
         xhttp.open("GET", cgicmd, true);
         xhttp.send();
         xhttp.onreadystatechange = function() {
@@ -471,7 +471,7 @@ debitPoints(1/2);
     
      function loadAdTable(callback) {
     var xhttp = new XMLHttpRequest();
-        var cgicmd = "http://kplat.cu.ma/cgi-bin/kplat_php.php?phpfun=readad";
+        var cgicmd = "https://kplat.cu.ma/cgi-bin/kplat_php.php?phpfun=readad";
         xhttp.open("GET", cgicmd, true);
         xhttp.send();
         xhttp.onreadystatechange = function() {
@@ -515,7 +515,7 @@ debitPoints(1/2);
     
     function updateBrowserTable(text,field,value,callback) {
 	var xhttp = new XMLHttpRequest();
-        var cgicmd = "http://kplat.cu.ma/cgi-bin/kplat_php.php?phpfun=updatebrowser&text=" + text + "&field=" + field + "&value=" + value;
+        var cgicmd = "https://kplat.cu.ma/cgi-bin/kplat_php.php?phpfun=updatebrowser&text=" + text + "&field=" + field + "&value=" + value;
         xhttp.open("GET", cgicmd, true);
         xhttp.send();
         callback();
@@ -535,7 +535,7 @@ showScreen('scrn_search');
 
 function deletePage(domain,callback) {
 	var xhttp = new XMLHttpRequest();
-        var cgicmd = "http://kplat.cu.ma/cgi-bin/kplat_php.php?phpfun=deletebrowser&domain=" + domain;
+        var cgicmd = "https://kplat.cu.ma/cgi-bin/kplat_php.php?phpfun=deletebrowser&domain=" + domain;
         xhttp.open("GET", cgicmd, true);
         xhttp.send();
         callback();
