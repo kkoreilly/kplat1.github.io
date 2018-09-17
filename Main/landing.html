@@ -1,0 +1,83 @@
+<!-- set up screens -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Kai O'Reilly Landing Page</title>
+    <style>
+          .scrn {  /* screen */
+        position: fixed;
+        display: none;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+ }
+
+ iframe[seamless] {
+        border: none;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+ }
+    </style>
+  </head>
+  <body>
+    <div class="scrn" id="scrn_landing">
+    <h1>Welcome to my landing page</h1>
+    <h2>I am the creator of KPlat, an online platform. I am also currently working on creating a new project, called Kataform. Kataform will also be an online platform</h2>
+    <h3>I like writing and coding, and I also have a youtube channel.</h3>
+    <h2>My website will be divided into sections; the table of contents will be below</h2>
+    <table id="table_of_contents">
+      <tr>
+        <th>Title</th>
+        <th>Screen</th>
+      </tr>
+      <tr style="cursor:pointer;" onclick="showScreen('scrn_main')">
+        <td>Main Page</td>
+        <td>1</td>
+      </tr>
+    </table>
+    </div>
+    <div id="scrn_main" class="scrn">
+      <h1>Welcome</h1>
+      <h3>You are currently at my main page. Here I will have my project and other things</h3>
+      <h1>Projects</h1>
+      <ul>
+        
+        <li>
+          <h2>Action</h2>
+          I believe in taking action on many of the problems in the world, including Food Waste, Starvartion and Global Warming
+          </li>
+          <li>
+          <h2>Kataform</h2>
+          Kataform is an open source platform, currently in alpha stages. To learn more, <a href="kataform.html" target="_blank">click here</a>.
+        </li>
+      </ul>
+    </div>
+    <script>
+      function showScreen(screen_name) {
+    // first turn off all the screens
+    var scrns = document.getElementsByClassName("scrn");
+    for(var i=0; i < scrns.length; i++) {
+        scrns[i].style.display = "none";
+    }
+    // then turn on the one we want
+    document.getElementById(screen_name).style.display = "block";
+}
+showScreen('scrn_landing')
+
+/*
+
+hello
+
+*/
+
+    </script>
+  </body>
+</html>
