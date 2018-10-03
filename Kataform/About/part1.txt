@@ -1,0 +1,16 @@
+Welcome to the Kataform learning place. This course can be used a reference and a guide when working on Kataform. Please follow the following steps to start part 1.
+
+1. You should get a basic tour from a Kataform manager. If you are viewing this doc, you have probably been contacted by a manager. If you have not been contacted or are not following a special deal, you probably should not be viewing this doc.
+2. Identify your device. Based on what you told the manager, they should have told you whether you are able to run go on your computer.
+
+Now, based on your answer for #2, do the following:
+
+If your device is able to run go, you first want to download go and then create a go file (kataform.go)
+
+If your device is not able to run go, create a google document and title it "Kataform Go - Your Name"
+
+Now you are ready to move onto part 2.
+
+View part 2 at kplat1.github.io/Kataform/About/part2.txt
+
+If the link does not work, part 2 does not exist yet.
