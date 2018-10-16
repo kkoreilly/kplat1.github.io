@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Kat Guide</title>
+    
+    <style>
+      
+       .scrn {  /* screen */
+        position: fixed;
+        display: none;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+ }
+
+ iframe[seamless] {
+        border: none;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+ }
+      
+      
+      .center_text {
+        
+        text-align:center;
+      }
+    #slide_1 {
+      background-color:lightgreen;
+    }
+    #slide_2 {
+      background-color:lightblue;
+    }
+   
+    #goToSlideTwoButton {
+      font-size:30px;
+      padding:5px;
+      background-color:lightblue;
+      color:red;
+    }
+    
+    #goToSlideThreeButton {
+      font-size:30px;
+      padding:5px;
+      background-color:lightgreen;
+      color:red;
+    }
+     #goToSlideFourButton {
+      font-size:30px;
+      padding:5px;
+      background-color:tan;
+      color:red;
+    }
+    
+    b {
+      font-size:18px;
+    }
+    </style>
+  </head>
+  <body onkeydown="slideChange()">
+    
+    
+    <div class="scrn" id="slide_1">
+      <h1 class="center_text">Welcome to Kataform</h1>
+      <h2 class="center_text">This slideshow is a working guide to all of the things you will need to know while coding on Kataform. Please use the arrow keys to navigate the slides</h2>
+      <p class="center_text">In here you will find coding help and instructions for each project that you might be working on. Please press the right arrow key to continue.</p>
+    </div>
+    
+    <div class="scrn" id="slide_2">
+      <h1>Basic Info on Kataform</h1>
+      <p>Kataform is being coded in go. It is using the graphics system of GoGi. The syntax of go will be talked about on later slides, but right now we will look at the syntax of GoGi.</p>
+      <p>In each file of code, there will be something called the trow. This is what you will add everything to. The following code creates a new text element inside of the trow and then sets the text to Hello World.</p>
+      <kbd>text1 := trow.AddNewChild(gi.KiT_Label, "text1").(*gi.Label)
+      <br> text1.Text = "Hello World"
+      </kbd>
+      <p>The first line of code creates the text and the second line of code sets the text. This syntax can be used in a lot of cases, but most of the time you will just be copying this on different projects and do not need to master it.</p>
+    </div>
+    
+    <div  class="scrn" id="slide_3">
+      <h1>Projects</h1>
+      <p>Currently there is only one ongoing project in Kataform. <button onclick="goToSlide(4)">Click here</button> to see it.</p>
+      
+    </div>
+    
+    <div id="slide_4" class="scrn">
+      <h1>Game -- Battle Game on Kataform</h1>
+      <p>This project is a battle game, currently in its working stages. Right now it is being worked on to create the Map, using a for loop setup. Here are a few things that you will want to do:</p>
+      <h2>Adding objects to the Map</h2>
+      <p>To add an object to the Map, add the following code:</p>
+      <kbd>Map = append(Map, mapRow{"elementName", "elementType", 7, 8, 9})</kbd>
+      <p>In that code, where it says elementName, enter what you want to be the element's name. Where it says elementType, enter the element type. More on types later. Where it says 7, write the x position, where it says 8 enter the y position and where it says 9 enter the z position. This line of code can be copied throughout the code.</p>
+      <h2>Adding types</h2>
+      <p>Types are different blocks or groups of blocks to be added to the map. grassBlock could be a type. Inside of your code file, there should be a for loop with if statments inside of it. The start of this code should look something like this:</p>
+      <kbd>for i := 0; i &lt; len(Map); i++ {
+      <br>
+      if Map[i].typeOf == "grassBlock" {
+      <br>
+      some code in here ...
+      <br>
+      }
+      </kbd>
+      <p>After that end bracket after the code, type the following:</p>
+      <kbd>else if Map[i].typeOf == "newType" {
+      <br>
+      some code here ...
+      <br>
+      }
+      </kbd>
+      <p>Where it says newType, type in the name of the new type. Then copy the code inside the if statement from another block and put it inside the new else if statement. Change any place where it says the name of another type and put your new type instead. Where it says something dot jpg, like path.jpg, go to google and find an image of your type. Save the image in your game folder as typeName.jpg, like dirt.jpg. Then in the code, set the image name to the thing you saved it as. Add an object to the map with your new type, save the code and run it!</p>
+    </div>
+    
+    <script>
+    function showGoalAction() {
+      document.getElementById("goalActionShowing").innerHTML = localStorage.getItem("goal_action")
+    }
+    function submitGoalAction() {
+      var text = goal_action_form.goal_action_text.value;
+      localStorage.setItem("goal_action", text)
+      alert("Good! Now move on to the next slide!")
+    }
+    var numberOfFinalGoals = 1;
+    goals = [{text:"test_goal"}]
+    function addRow() {
+      numberOfFinalGoals ++;
+      document.getElementById("goal_finals").innerHTML += "<br><input id='goal_form_final_" + numberOfFinalGoals + "'>"
+    }
+    function submitGoalForm() {
+      for (var i = 0; i < numberOfFinalGoals; i++) {
+        var num = i +1;
+        console.log("goal_form_final_" + num)
+        goals.push({text:document.getElementById("goal_form_final_" + num).value})
+      }
+      localStorage.setItem("goals", goals)
+    }
+    
+      function showScreen(screen_name) {
+        
+    // first turn off all the screens
+    var scrns = document.getElementsByClassName("scrn");
+    for(var i=0; i < scrns.length; i++) {
+        scrns[i].style.display = "none";
+    }
+    // then turn on the one we want
+    document.getElementById(screen_name).style.display = "block";
+}
+
+var currentSlide = 1;
+var numberOfSlides = 4;
+
+
+showScreen("slide_" + currentSlide)
+      
+      
+      function slideChange() {
+        console.log(1)
+        var keyPressed = event.keyCode;
+        console.log(keyPressed)
+        
+        
+        if (keyPressed == 39 && (currentSlide + 1) <= numberOfSlides ) {
+          // go up one slide
+          console.log('up')
+          currentSlide += 1;
+          showScreen('slide_' + currentSlide)
+      
+        } else if (keyPressed == 37 && (currentSlide -1 ) > 0) {
+          // go down one slide
+          
+          currentSlide -= 1;
+          showScreen('slide_' + currentSlide)
+        }
+      }
+      
+      function goToSlide(num) {
+        var dif = num - currentSlide;
+        currentSlide += dif;
+        showScreen('slide_' + currentSlide)
+        
+      }
+      var goalsUse;
+      function showGoalTable() {
+      var goalsLength = goals.length;
+      console.log(goalsLength)
+         goalsUse =  goals;
+        
+        
+        var table = "<table><tr><th>Goals</th></tr>"
+        console.log(goalsUse.length)
+        console.log(goalsUse)
+        for (var i = 0; i < goalsLength; i++) {
+          var num = i +1;
+          console.log("!" + num)
+          console.log("?" + goalsUse[i].text)
+          var newText = "<tr><td>" +  goalsUse[i].text+ "</td></tr>"
+          table += newText
+        }
+        table += "</table>"
+        document.getElementById("goalTable").innerHTML = table;
+        
+        
+       
+        
+        
+      }
+    </script>
+  </body>
+</html>
