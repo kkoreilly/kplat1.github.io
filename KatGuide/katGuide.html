@@ -4,6 +4,10 @@
     <title>Kat Guide</title>
     
     <style>
+       .scrn {
+         overflow: scroll;
+       }
+      
       
        .scrn {  /* screen */
         position: fixed;
@@ -15,7 +19,6 @@
         right: 0;
         bottom: 0;
  }
-
  iframe[seamless] {
         border: none;
         position: fixed;
@@ -150,11 +153,8 @@
     // then turn on the one we want
     document.getElementById(screen_name).style.display = "block";
 }
-
 var currentSlide = 1;
 var numberOfSlides = 4;
-
-
 showScreen("slide_" + currentSlide)
       
       
