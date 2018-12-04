@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Games Help</title>
+  </head>
+  <body>
+    <h1>Kataform Games Help</h1>
+    <h3>Directions:</h3>
+    <b>
+      
+      <ul>
+        <li>This guide is for people creating games for Kataform ONLY</li>
+        <li>Please follow all of the steps listed below.</li>
+        <li>Have fun!</li>
+      </ul>
+      
+      
+      
+      
+    </b>
+    <h3>Chapter One: Getting a game document set up</h3>
+    <p>The very first thing you need is a document to code in. There is a lot of baseline things needed in a game, and they will be covered below. The <a download href="game.go">go file</a> can be downloaded with these things set up.</p>
+    <p>After downloading and opening the go file, you will notice the declaration of three variables: SvgGame, SvgPeople and SvgMap. These variables will be key for doing things. The first thing you want to do is title your game. Around line 130, a line starts with <kbd>title.Text =</kbd>. Inside the quotes put the title of your game.</p>
+    <h3>Chapter Two: Creating Your Players</h3>
+    <p>Now comes the fun part of the game, only less fun than playing the finished version. You will now generate the code to create your people. It won't be hard because of the support provided by the coding document you are using. Somewhere in the document you will find <kbd>func InitPlayer() {</kbd>. Inside of the function you will find some code that you need to modify. The first thing you need to do is decide what you want your main player to be. The main choices are Rectangle or Circle. In your code will be the following:</p>
+    <br>
+    <kbd>var player *svg.Rect<br><br>
+
+func InitPlayer() {<br>
+	updt := SvgGame.UpdateStart()<br>
+	SvgPeople.DeleteChildren(true)<br>
+
+	player = SvgPeople.AddNewChild(svg.KiT_Rect, "player").(*svg.Rect)<br>
+
+	<b>player.SetProp("fill", "red")<br>
+	player.SetProp("stroke", "darkred")</b><br>
+	player.Size = gi.Vec2D{2, 2}<br>
+	player.Pos = gi.Vec2D{-5, -10}
+	<br><br>
+	SvgGame.UpdateEnd(updt)
+<br>
+}
+</kbd>
+	
+	<br><br>
+    <p>Wherever it says *svg.Rect make it *svg.Circle or keep it Rect depending on your shape. Next set the color on the fill and stroke lines. The fill color is the inside of your shape and the stroke is the border. Next set the size and the position. Your game is on a 10 by 10 coordinate plane so keep that in mind when setting these. You can copy this code to create other players.</p>
+  </body>
+</html>
