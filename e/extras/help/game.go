@@ -223,7 +223,10 @@ func mainrun() {
 }
 
 func InitMap() {
-	
+		updt := SvgGame.UpdateStart()
+
+	SvgGame.UpdateEnd(updt)
+
 }
 
  var player *svg.Rect
@@ -298,4 +301,3 @@ func MainLoop() {
 
 	}
 }
-
