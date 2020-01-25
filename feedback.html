@@ -69,10 +69,19 @@
   background-color: white; /* White background color */
   padding: 20px; /* Some padding */
 }
+img {
+  width: 50%;
+  height: auto;
+
+}
 
 @media screen and (max-width: 700px) {
   .row {
     flex-direction: column;
+  }
+  img {
+    width: 70%;
+    height: auto;
   }
 }
 
@@ -81,6 +90,10 @@
   .navbar a {
     float: none;
     width: 100%;
+  }
+  img {
+    width: 100%;
+    height: auto;
   }
 }
 
