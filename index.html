@@ -1,9 +1,128 @@
-<!DOCTYPE html>
+
+<!DOCTYPE HTML>
 <html>
-<body>
-  <script type="text/javascript">
-window.location.href = "https://kplat1.github.io/BattleGame";
-  </script>
+  <head>
+    <title>Singularity Showdown</title>
+    <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+    font-family: georgia;
+    }
+    .header {
+  padding: 80px; /* some padding */
+  text-align: center; /* center the text */
+  background: black;
+  color: white; /* white text color */
+}
+
+.header h1 {
+  font-size: 40px;
+}
+
+.navbar {
+  overflow: hidden; /* Hide overflow */
+  background-color: #333; /* Dark background color */
+}
 
 
-    </body>
+.navbar a {
+  float: left; /* Make sure that the links stay side-by-side */
+  display: block; /* Change the display to block, for responsive reasons (see below) */
+  color: white; /* White text color */
+  text-align: center; /* Center the text */
+  padding: 14px 20px; /* Add some padding */
+  text-decoration: none; /* Remove underline */
+}
+
+
+.navbar a.right {
+  float: right; /* Float a link to the right */
+}
+
+
+.navbar a:hover {
+  background-color: #ddd; /* Grey background color */
+  color: black; /* Black text color */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Column container */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Create two unequal columns that sits next to each other */
+/* Sidebar/left column */
+.side {
+  flex: 30%; /* Set the width of the sidebar */
+  background-color: #f1f1f1; /* Grey background color */
+  padding: 20px; /* Some padding */
+}
+
+/* Main column */
+.main {
+  flex: 70%; /* Set the width of the main content */
+  background-color: white; /* White background color */
+  padding: 20px; /* Some padding */
+}
+
+@media screen and (max-width: 700px) {
+  .row {
+    flex-direction: column;
+  }
+}
+
+/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
+@media screen and (max-width: 400px) {
+  .navbar a {
+    float: none;
+    width: 100%;
+  }
+}
+
+.footer {
+  padding: 20px; /* Some padding */
+  text-align: center; /* Center text*/
+  background: #ddd; /* Grey background */
+}
+  </style>
+
+  </head>
+  <body>
+    <div class="header">
+  <img src="logo.png" alt="Singularity Showdown Logo">
+</div>
+
+<div class="navbar">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="feedback.html">Feedback</a>
+  <a href="status.html" class="right">Status</a>
+  <!-- <a href="contact.html" class="right">Contact</a> -->
+
+</div>
+
+
+<div class="row">
+  <div class="side">
+    Note: Singularity Showdown is still in development.<br><br>
+  <a target="_blank" href="https://github.com/kplat1/ssd">Singularity Showdown on GitHub</a>
+  </div>
+  <div class="main">Welcome to the Singularity Showdown home page. Singularity Showdown is a free and open source 3D Battle Game on GitHub. It is still being developed, but an alpha version will be released soon. For more information on the status of Singularity Showdown, look at the status page. Once released, Singularity Showdown will be available on Linux, Windows, and Mac. <br><br><br><br>
+  <figure>
+
+
+  </div>
+</div>
+
+<div class="footer" hidden>
+  <h2>Footer</h2>
+</div>
+
+  </body>
+</html>
